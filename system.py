@@ -31,45 +31,11 @@ class Check():
 	"""Class with a series of functions to check aspects of our setup"""
 	def getEnvironment(self):
 		"""Function to print out all the paths that are associated with Maya system setup"""
-		scriptPaths = mel.getenv("MAYA_SCRIPT_PATH")
-		plugInPaths = mel.getenv("MAYA_PLUG_IN_PATH")
-		pythonPaths = mel.getenv("PYTHONPATH")
-		iconPaths = mel.getenv("XBMLANGPATH")
-		pathPaths = mel.getenv("PATH")
 		sysPaths = sys.path
-		appPath = mel.getenv("MAYA_APP_DIR")
-		
-		allScriptPaths = scriptPaths.split(";")
-		print "\nMAYA_SCRIPT_PATHs are:"
-		for scriptPath in allScriptPaths:
-			print scriptPath
-		
-		allPlugInPaths = plugInPaths.split(";")
-		print "\nMAYA_PLUG_IN_PATHs are:"
-		for plugInPath in allPlugInPaths:
-			print plugInPath
-		
-		allPythonPaths = pythonPaths.split(";")
-		print "\nPYTHONPATHs are:"
-		for pythonPath in allPythonPaths:
-			print pythonPath
-		
-		allIconPaths = iconPaths.split(";")
-		print "\nXBMLANGPATHs are:"
-		for iconPath in allIconPaths:
-			print iconPath
-		
-		allPathPaths = pathPaths.split(";")
-		print "\nPATHs are:"
-		for pathPath in allPathPaths:
-			print pathPath
 		
 		print "\nsys.paths are:"
 		for sysPath in sysPaths:
 			print sysPath
-		
-		print "\nAPP DIRs is:"
-		print appPath
 
 
 class User():
@@ -129,27 +95,14 @@ class EngineInfo():
 	def findCompanyXML(self):
 		"""Function to look through script and python paths to find the TDFramework.xml document"""
 		#Collect paths
-		pathsTotal = []
-		
-		scriptPaths = mel.getenv("MAYA_SCRIPT_PATH")
-		pythonPaths = mel.getenv("PYTHONPATH")
+		pathsTotal = [] #Crete empty path variable that we can add stuff to later if we like
 
-		allScriptPaths = scriptPaths.split(";")
-		allPythonPaths = pythonPaths.split(";")
-		
-		#Might be worth implementing a make unique array function here... Submodule name? 
-		for path in allScriptPaths:
-			pathsTotal.append(path)
-		
-		for path in allPythonPaths:
-			pathsTotal.append(path)
-		
 		#Add in all the system paths to, to check them	
 		pathsTotal += sys.path
 		
 		#Now check to see if the file exists! 
 		for path in pathsTotal:
-			fullPath = path + "/TDFramework/TDFramework_Structure.xml"
+			fullPath = path + "/SVFX/SVFX_Structure.xml"
 			pathTest = fileControl.FileMan(fullPath)
 			if pathTest.exists():
 				pathFound = True
