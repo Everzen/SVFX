@@ -1,7 +1,7 @@
 #################################################################################################
 ##3DFRAMEWORK - Developed by Richard Jones
 #
-##PACKAGE:      3DFRAMEWORK
+##PACKAGE:      SVFX
 ##SUB-MODULE:   FILECONTROL 
 #
 ##VERSION:       1.0
@@ -12,8 +12,6 @@
 
 #################################################################################################
 ##IMPORTS 
-
-import maya.cmds as cmds
 import os
 import xml.etree.ElementTree as xml
 
@@ -56,73 +54,6 @@ class FileMan():
 		else:
 			print "TError: The filename is not defined so the directory cannot be created"
 	
-	def fExport(self,objList, fType):
-		"""A function to help with exporting under a range of conditions"""
-		if self.fileName != None:
-			#first store the current selection so we can reselect at the end
-			currSel = cmds.ls(sl=True)
-			#Now make the export selection 
-			cmds.select(objList)
-			if fType == "obj":
-				cmds.file(self.fileName, exportSelected=True, type='OBJexport')
-			elif fType == "fbx":
-				cmds.file(self.fileName, exportSelected=True, type='fbx_Export')
-			elif fType == "ma":
-				cmds.file(self.fileName, exportSelected=True, type='mayaAscii')
-			elif fType == "mb":
-				cmds.file(self.fileName, exportSelected=True, type='mayaBinary')
-			else:
-				print "TError: The type of the file is not recognised, so an Export cannot occur."
-			cmds.select(currSel)
-		else:
-			print "TError: The file name is not defined and therefore export cannot happen"
-			
-	def fImport(self,selected=False):
-		"""A function to import the file name"""
-		if self.exists():
-			newObjs = cmds.file(self.fileName, i=True, returnNewNodes=True, removeDuplicateNetworks=True)
-			newObjs = cmds.ls(newObjs, transforms=True, long=True)
-			if selected:
-				cmds.select(newObjs)
-			return newObjs
-		else:
-			if self.fileName == None:
-				print "TError: The file cannot be imported, because it has not been defined"
-			else:
-				print "TError: The file is defined, but does not exist, so it cannot be imported"
-			return []
-	
-	def mayaSave(self, fType):
-		"""Function to save out the entire Maya scene in order to preserve things like render layers"""
-		if self.fileName != None:
-			if fType == "ma":
-				cmds.file(rename = self.fileName)
-				cmds.file(save=True, type='mayaAscii')
-			elif fType == "mb":
-				cmds.file(rename = self.fileName)
-				cmds.file(save=True, type='mayaBinary')
-			else:
-				print "TError: The type of the file is not recognised, so a Maya Save cannot occur."
-		else:
-			print "TError: The file name is not defined and therefore a Mays Save cannot happen"
-	
-	
-	def mayaOpen(self, fType):
-		"""Function to save out the entire Maya scene in order to preserve things like render layers"""
-		if self.fileName != None:
-			if fType == "ma":
-				cmds.file(self.fileName, open=True, type='mayaAscii')
-			elif fType == "mb":
-				cmds.file(self.fileName, open=True, type='mayaBinary')
-			else:
-				print "TError: The type of the file is not recognised, so a Maya Open cannot occur."
-		else:
-			print "TError: The file name is not defined and therefore a Mays Open cannot happen"
-			
-
-"""
-Look at NameSpace clases for fImport
-"""
 
 
 class XMLMan():

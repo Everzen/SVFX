@@ -1,7 +1,7 @@
 #################################################################################################
 ##3DFRAMEWORK - Developed by Richard Jones
 #
-##PACKAGE:      3DFRAMEWORK
+##PACKAGE:      SVFX
 ##SUB-MODULE:   SYSTEM
 #
 ##VERSION:      1.0
@@ -80,7 +80,6 @@ class User():
 class EngineInfo():
 	"""A Class to strip out all major information regarding the setup of the company"""
 	companyXML = None
-	
 	userInfo = []
 	
 	def __init__(self):
@@ -134,7 +133,6 @@ class EngineInfo():
 		return self.userInfo
 
 
-
 	def getUserNames(self):
 		"""Function to return a list of user names"""
 		if self.companyXML != None:
@@ -169,10 +167,6 @@ class EngineInfo():
 			enginePath = self.companyXML.findBranch(pathName)
 			return (engineRoot[0].get("Path") + "/" + enginePath[0].get("Path"))
 	
-	def getProjectPath(self):
-		"""Function to return the project path"""
-		currentProjectPath = pm.workspace.path
-		return currentProjectPath
 
 
 
@@ -216,4 +210,3 @@ class ToolHelp():
 		else:
 			tDError.Report("Well this is a pickle. There does not seem to be a video")
 
-""" XML READING ERROR CORRECT"""
