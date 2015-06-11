@@ -14,11 +14,8 @@
 ##IMPORTS
 
 import sys
-from pymel.all import *
-import pymel.core as pm
 import os
 import xml.etree.ElementTree as xml
-
 
 import fileControl
 import errorControl as tDError
