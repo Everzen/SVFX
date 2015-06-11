@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Company_Structure>
+	<Company_Name Name="University of Bolton" />
+	<Engine_Directories>
+		<EngineRoom Path="N:/TDF_Ops" />
+        	<ProjectTemplates Path="C:\\" />
+        	<LibraryCore Path="" />
+        	<ToolHelp Path="TDF_Documentation/ToolHelp"/>
+            <QtUIs Path="TDF_Tools/Tools/QtUIs" />
+            <Projects Path="TDF_ToolAssets/ProjectSetup"/>
+            <UserData Path= "__Resources__/XML/TDFramework_UserList.xml"/>
+        </Engine_Directories>
+        <Server_Locations>
+        	<Server01 Name="ProjectServer" Path="" />
+        </Server_Locations>
+        <Tool_Directories>
+         	<ExporterImporter Path="TDF_ToolAssets/ExporterImporter" />
+        </Tool_Directories>
+        <Project_Paths>
+        </Project_Paths>
+</Company_Structure>
