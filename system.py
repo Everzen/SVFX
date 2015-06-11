@@ -18,7 +18,7 @@ import os
 import xml.etree.ElementTree as xml
 
 import fileControl
-import errorControl as tDError
+import errorControl as FXError
 
 #################################################################################################
 ##CLASSES, FUNCTIONS AND DATA
