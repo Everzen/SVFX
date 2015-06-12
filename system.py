@@ -35,53 +35,51 @@ class Check():
 			print sysPath
 
 
-class User():
-	"""A Class to carry all the user information in a nice neat object, using Excel XML data Approach"""	
-	#Methods
-	def __init__(self, xmlUserData):
-		"""Function to strip out user data into a neat object"""
-		self.uForename = xmlUserData.find("Forename").text
-		self.uSurname = xmlUserData.find("Surname").text
-		self.uName = self.uForename + self.uSurname
-		self.uID = xmlUserData.find("ID").text
-		self.uCourse = xmlUserData.find("Course").text
-		self.uYear = xmlUserData.find("Year").text
-		self.uStatus = xmlUserData.find("Status").text
+# class User():
+# 	"""A Class to carry all the user information in a nice neat object, using Excel XML data Approach"""	
+# 	#Methods
+# 	def __init__(self, xmlUserData):
+# 		"""Function to strip out user data into a neat object"""
+# 		self.uForename = xmlUserData.find("Forename").text
+# 		self.uSurname = xmlUserData.find("Surname").text
+# 		self.uName = self.uForename + self.uSurname
+# 		self.uID = xmlUserData.find("ID").text
+# 		self.uCourse = xmlUserData.find("Course").text
+# 		self.uYear = xmlUserData.find("Year").text
+# 		self.uStatus = xmlUserData.find("Status").text
 
-	def getForename(self):
-		"""Function to return the username"""
-		return self.uForename
+# 	def getForename(self):
+# 		"""Function to return the username"""
+# 		return self.uForename
 
-	def getSurname(self):
-		"""Function to return the username"""
-		return self.uSurname
+# 	def getSurname(self):
+# 		"""Function to return the username"""
+# 		return self.uSurname
 	
-	def getName(self):
-		"""Function to return the username"""
-		return self.uName
+# 	def getName(self):
+# 		"""Function to return the username"""
+# 		return self.uName
 	
-	def getID(self):
-		"""Function to return ID"""
-		return self.uID
+# 	def getID(self):
+# 		"""Function to return ID"""
+# 		return self.uID
 		
-	def getStatus(self):
-		"""Function to return Status"""
-		return self.uStatus
+# 	def getStatus(self):
+# 		"""Function to return Status"""
+# 		return self.uStatus
 
-	def getYear(self):
-		"""Function to return Status"""
-		return self.uYear
+# 	def getYear(self):
+# 		"""Function to return Status"""
+# 		return self.uYear
 
-	def getCourse(self):
-		"""Function to return Course"""
-		return self.uCourse
+# 	def getCourse(self):
+# 		"""Function to return Course"""
+# 		return self.uCourse
 
 
 class EngineInfo():
 	"""A Class to strip out all major information regarding the setup of the company"""
 	companyXML = None
-	# userInfo = []
-	userCategories = []
 	
 	def __init__(self):
 		"""Function to setup and strip out company info"""
@@ -113,19 +111,8 @@ class EngineInfo():
 			compData = self.companyXML.findBranch("Company_Name")
 			return (compData[0].get("Name"))
 
-	def getUserCategories(self):
-		"""Function to strip out all the user categories from the main Company XML and return them"""
-		if self.companyXML != None:
-			self.userCategories = []
-			userCategoryRoot = self.companyXML.findBranch("UserCategories")[0]
-			print "The Branch is : " + str(userCategoryRoot) 
-			userCategories = userCategoryRoot.findBranch("Category")
-
-			for c in userCategories:
-				print "This is C " + str(c.getTree())
-				self.userCategories.append(c.getAttribute("SearchName"))
-
-			return self.userCategories		
+	def getCompanyXML(self):
+		return self.companyXML
 
 
 	# def generateUserInfo(self):
@@ -182,7 +169,40 @@ class EngineInfo():
 			engineRoot = self.companyXML.findBranch("EngineRoom")
 			enginePath = self.companyXML.findBranch(pathName)
 			return (engineRoot[0].get("Path") + "/" + enginePath[0].get("Path"))
-	
+
+
+
+class UserInfo():
+	"""A Class to strip out all major information regarding Users and User categories from the main Company XML"""
+
+	#Data
+	userCategories = []
+
+	#Methods
+	def __init__(self):
+		self.findUserCategories()
+		
+	def findUserCategories(self):
+		"""Function to strip out all the user categories from the main Company XML and return them"""
+		engineInfo = EngineInfo() #First of all find the engine and the company Xml
+		companyXML = engineInfo.getCompanyXML()		
+		self.userCategories = [] #Clear out any existing user categories
+
+		if companyXML != None:
+			userCategoryRoot = companyXML.findBranch("UserCategories")[0] #Find the main User Category Branch
+			userCategories = userCategoryRoot.findBranch("Category") #Grab all the categories as XMLMan
+
+			for c in userCategories:
+				self.userCategories.append(c.getAttribute("SearchName")) #Save out all the category names into a list
+
+			return self.userCategories
+		else:
+			print "SVFX WARNING : Could not find any user categoies because the main company XML could not be found."	
+
+	def getUserCategories(self):
+		return self.userCategories
+
+
 
 
 
