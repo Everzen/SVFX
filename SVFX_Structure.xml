@@ -10,6 +10,12 @@
             <Projects Path="SVFX_ToolAssets/ProjectSetup"/>
             <UserData Path= "__Resources__/XML/SVFX_UserList.xml"/>
         </Engine_Directories>
+        <UserCategories>
+            <Category SearchName="Student      Int" RefName="" />
+            <Category SearchName="Surname" RefName="" />
+            <Category SearchName="Prog" RefName="" />
+            <Category SearchName="Route" RefName="" />
+        </UserCategories>
         <Server_Locations>
         	<Server01 Name="ProjectServer" Path="" />
         </Server_Locations>

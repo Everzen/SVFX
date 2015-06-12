@@ -80,13 +80,14 @@ class User():
 class EngineInfo():
 	"""A Class to strip out all major information regarding the setup of the company"""
 	companyXML = None
-	userInfo = []
+	# userInfo = []
+	userCategories = []
 	
 	def __init__(self):
 		"""Function to setup and strip out company info"""
 		self.findCompanyXML()
 		#Now generate the User Info
-		self.generateUserInfo()
+		# self.generateUserInfo()
 	
 	def findCompanyXML(self):
 		"""Function to look through script and python paths to find the TDFramework.xml document"""
@@ -112,52 +113,64 @@ class EngineInfo():
 			compData = self.companyXML.findBranch("Company_Name")
 			return (compData[0].get("Name"))
 
-	def generateUserInfo(self):
-		"""Function return information on all users using the Excel XML data Approach"""
+	def getUserCategories(self):
 		if self.companyXML != None:
-			self.userInfo = []
-			userDataPath = self.getEnginePath("UserData")
-			userDataXML = fileControl.XMLMan()
-			userDataXML.setLoad(userDataPath)
-			userData = userDataXML.findBranch("User")
-			for u in userData:
-				uData = User(u)
-				self.userInfo.append(uData)
-			return self.userInfo
+			self.userCategories = []
+			userCategoryRoot = self.companyXML.findBranch("UserCategories")[0]
+			userCategories = userCategoryRoot.findBranch("Category")
 
-	
-	def getUserInfo(self):
-		"""Function to return collected user data"""
-		if len(self.userInfo) == 0:
-			print "TError: There are no users, or the user data has not been generated properly"
-		return self.userInfo
+			for c in userCategories:
+				self.userCategories.append(c.get("Search Name"))
+
+			return self.userCategories		
 
 
-	def getUserNames(self):
-		"""Function to return a list of user names"""
-		if self.companyXML != None:
-			usernames = []
-			userData = self.companyXML.findBranch("User")
-			for user in userData:
-				usernames.append(user.get("Name"))
-			return usernames
+	# def generateUserInfo(self):
+	# 	"""Function return information on all users using the Excel XML data Approach"""
+	# 	if self.companyXML != None:
+	# 		self.userInfo = []
+	# 		userDataPath = self.getEnginePath("UserData")
+	# 		userDataXML = fileControl.XMLMan()
+	# 		userDataXML.setLoad(userDataPath)
+	# 		userData = userDataXML.findBranch("User")
+	# 		for u in userData:
+	# 			uData = User(u)
+	# 			self.userInfo.append(uData)
+	# 		return self.userInfo
+
 	
-	def getUserFromName(self, userName):
-		"""A function to return the total user info from the given string name"""
-		reqUser = None
-		for u in self.userInfo:
-			if u.getName() == userName:
-				reqUser = u
-		return reqUser
+	# def getUserInfo(self):
+	# 	"""Function to return collected user data"""
+	# 	if len(self.userInfo) == 0:
+	# 		print "TError: There are no users, or the user data has not been generated properly"
+	# 	return self.userInfo
+
+
+	# def getUserNames(self):
+	# 	"""Function to return a list of user names"""
+	# 	if self.companyXML != None:
+	# 		usernames = []
+	# 		userData = self.companyXML.findBranch("User")
+	# 		for user in userData:
+	# 			usernames.append(user.get("Name"))
+	# 		return usernames
 	
-	def getCurrentUser(self):
-		"""A function to return all the user info for the current user - return User Object"""
-		cUserName = os.environ.get("USERNAME")
-		reqUser = None
-		for u in self.userInfo:
-			if u.getID() == cUserName:
-				reqUser = u
-		return reqUser
+	# def getUserFromName(self, userName):
+	# 	"""A function to return the total user info from the given string name"""
+	# 	reqUser = None
+	# 	for u in self.userInfo:
+	# 		if u.getName() == userName:
+	# 			reqUser = u
+	# 	return reqUser
+	
+	# def getCurrentUser(self):
+	# 	"""A function to return all the user info for the current user - return User Object"""
+	# 	cUserName = os.environ.get("USERNAME")
+	# 	reqUser = None
+	# 	for u in self.userInfo:
+	# 		if u.getID() == cUserName:
+	# 			reqUser = u
+	# 	return reqUser
 		
 		
 	def getEnginePath(self, pathName):
