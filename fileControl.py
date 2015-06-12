@@ -72,11 +72,19 @@ class XMLMan():
 		"""Function to get the XML file location"""
 		return (self.fileLoc)
 	
+	def getTree(self):
+		"""A function to simply return the XML tree that is stored in the instance of the class"""
+		return self.tree
+
+	def getAttribute(self, attribute):
+		"""Function to check the current XML tree and return the requested attribute if it exists - returns None if the attribute does not exist"""
+		return self.tree.get(attribute)
+
 	def setTree(self,xmlTree):
 		"""A function used to directly set the tree. Most often used when a file is not being loaded in"""
 		self.tree = xmlTree
 		return self.tree
-	
+
 	def getMarkedBranches(self):
 		"""Function to get the Marked Branches"""
 		return self.markedBranches
@@ -114,7 +122,9 @@ class XMLMan():
 		targetbranch = branch.findall(tName)
 		if len(targetbranch) != 0:
 			for b in targetbranch:
-		    		self.markedBranches.append(b)
+				newBranch = XMLMan()
+				newBranch.setTree(b)
+				self.markedBranches.append(newBranch)
 		else:
 			for child in branch:
 		   		self.iterFindBranch(child, tName)

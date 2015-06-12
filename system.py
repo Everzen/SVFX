@@ -114,13 +114,16 @@ class EngineInfo():
 			return (compData[0].get("Name"))
 
 	def getUserCategories(self):
+		"""Function to strip out all the user categories from the main Company XML and return them"""
 		if self.companyXML != None:
 			self.userCategories = []
 			userCategoryRoot = self.companyXML.findBranch("UserCategories")[0]
+			print "The Branch is : " + str(userCategoryRoot) 
 			userCategories = userCategoryRoot.findBranch("Category")
 
 			for c in userCategories:
-				self.userCategories.append(c.get("Search Name"))
+				print "This is C " + str(c.getTree())
+				self.userCategories.append(c.getAttribute("SearchName"))
 
 			return self.userCategories		
 
