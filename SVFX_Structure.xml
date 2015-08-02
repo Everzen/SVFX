@@ -11,10 +11,18 @@
             <UserData Path= "__Resources__/XML/SVFX_UserList.xml"/>
         </Engine_Directories>
         <UserCategories>
-            <Category SearchName="Student      Int" RefName="" />
+            <Category SearchName="Bolton ID" RefName="" />
+            <Category SearchName="Forename" RefName="" />
             <Category SearchName="Surname" RefName="" />
-            <Category SearchName="Prog" RefName="" />
-            <Category SearchName="Route" RefName="" />
+            <Category SearchName="Network ID" RefName="" />
+            <Category SearchName="Email" RefName="" />
+            <Category SearchName="Status Code" RefName="" />
+            <Category SearchName="Disability" RefName="" />    
+            <Category SearchName="Occurence" RefName="" /> 
+            <Category SearchName="Course Code" RefName="" /> 
+            <Category SearchName="Course Name" RefName="" /> 
+            <Category SearchName="Personal Tutor" RefName="" />       
+            <Category SearchName="Personal Tutor Email" RefName="" /> 
         </UserCategories>
         <Server_Locations>
         	<Server01 Name="ProjectServer" Path="" />
